@@ -818,7 +818,9 @@ impl ServerHandler for RexyMcpServer {
         tools.insert(1, continue_phase_tool());
         tools.sort_by(|a, b| a.name.cmp(&b.name));
         let next_cursor = request.and_then(|r| r.cursor);
-        let mut result = rmcp::model::ListToolsResult::with_all_items(tools);
+        let mut result = rmcp::model::ListToolsResult::with_all_items(tools)
+            .with_ttl_ms(0)
+            .with_cache_scope(rmcp::model::CacheScope::Private);
         result.next_cursor = next_cursor;
         Ok(result)
     }
