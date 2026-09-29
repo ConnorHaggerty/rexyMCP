@@ -865,6 +865,7 @@ stream_idle_timeout_secs = 240            # max gap between tokens once streamin
 # seed        = 42                        # deterministic sampling seed; omitted → none
 # max_tokens  = 8192                      # per-response output ceiling (default 8192); raise for thinking models
 # enable_thinking = false                 # opt-in reasoning toggle → chat_template_kwargs (default false)
+# reasoning_effort = "medium"             # low | medium | xhigh → chat_template_kwargs, only when thinking is on
 task_tracking = true                      # seed a per-session checklist from the phase Spec (default true)
 # tier = "MEDIUM"                         # "LARGE" | "MEDIUM" | "SMALL" — usually set via `rexymcp calibrate`
 
@@ -924,6 +925,7 @@ temperature                    = 0.2      # any of these override the global val
 # seed                         = 7
 # max_tokens                   = 16384     # per-model output ceiling (thinking models often need more)
 # enable_thinking              = true      # turn reasoning on for this model only (global default is false)
+# reasoning_effort             = "low"     # this model's reasoning effort
 # task_tracking                = false
 # identical_call_threshold     = 8
 # verifier_persistence_threshold = 8
@@ -945,7 +947,7 @@ temperature                    = 0.2      # any of these override the global val
 | Section | Purpose |
 |---|---|
 | `[project]` | `id` — per-project UUID (from `rexymcp init`) that scopes telemetry to this project regardless of path. |
-| `[executor]` | The local model + connection: `provider`, `model`, `base_url`, `api_key`, the two streaming timeouts, sampling (`temperature`, `seed`, `max_tokens`), `enable_thinking`, `task_tracking`, and `tier`. |
+| `[executor]` | The local model + connection: `provider`, `model`, `base_url`, `api_key`, the two streaming timeouts, sampling (`temperature`, `seed`, `max_tokens`), `enable_thinking`, `reasoning_effort`, `task_tracking`, and `tier`. |
 | `[commands]` | The `format` / `build` / `lint` / `test` (+ optional `lint_fix`) commands run as the final gate. |
 | `[budget]` | `context_length`, `max_context_pct`, `max_turns`, `gate_retries`, and the optional `wall_clock_secs` ceiling (M26). |
 | `[telemetry]` | `dir` — the cross-project store. Omit to disable; `~` is expanded. |
@@ -953,7 +955,7 @@ temperature                    = 0.2      # any of these override the global val
 | `[context]` | `output_filter` kill-switch for the M10 boundary filter. |
 | `[governor]` | Hard-fail thresholds: identical-call, verifier-persistence, runaway-output, empty-completion, stuck-gate-feedback, the no-progress read-only stall, and the oscillation / output-flood / low-novelty windows (the last of these advisory-only by default — see `novelty_action`). |
 | `[escalation]` | `max_assists` — the flat, tier-independent per-phase escalation budget for the `/rexymcp:auto` loop (M27). |
-| `[models."<id>"]` | Per-model overrides (exact-id match) for sampling (`temperature`/`seed`/`max_tokens`/`enable_thinking`), task-tracking, and every governor threshold. Any key omitted inherits the global value. |
+| `[models."<id>"]` | Per-model overrides (exact-id match) for sampling (`temperature`/`seed`/`max_tokens`/`enable_thinking`/`reasoning_effort`), task-tracking, and every governor threshold. Any key omitted inherits the global value. |
 
 ---
 

@@ -119,24 +119,28 @@ mod tests {
         let default_params = GenerationParams {
             temperature: None,
             seed: None,
+            ..Default::default()
         };
         assert_eq!(settings_label(&default_params), "default");
 
         let temp_only = GenerationParams {
             temperature: Some(0.2),
             seed: None,
+            ..Default::default()
         };
         assert_eq!(settings_label(&temp_only), "temp=0.2");
 
         let seed_only = GenerationParams {
             temperature: None,
             seed: Some(42),
+            ..Default::default()
         };
         assert_eq!(settings_label(&seed_only), "seed=42");
 
         let both = GenerationParams {
             temperature: Some(0.2),
             seed: Some(42),
+            ..Default::default()
         };
         assert_eq!(settings_label(&both), "temp=0.2,seed=42");
     }
