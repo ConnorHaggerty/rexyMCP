@@ -1,0 +1,6 @@
+# Pin the toolchain CI and local builds lint against. `clippy::all` is denied
+# workspace-wide, so an unpinned stable drifts new lints into the gate on
+# every Rust release. Bump deliberately, fixing the new lints in the same commit.
+[toolchain]
+channel = "1.99.0"
+components = ["clippy", "rustfmt"]

@@ -104,7 +104,7 @@ pub fn sweep_once(config_path: &Path, transcript_dir: &Path, telemetry_dir: &Pat
     let prev = read_liveness(telemetry_dir);
     let prev_watermark = prev.as_ref().map(|s| s.last_seen_mtime_ms);
     // Treat 0 as "never harvested" → maps to None for skip decision
-    let prev_for_skip = prev_watermark.and_then(|w| if w == 0 { None } else { Some(w) });
+    let prev_for_skip = prev_watermark.filter(|&w| w != 0);
 
     // Safety net: transcript dir might not exist (imperfect munging or fresh repo)
     if !transcript_dir.exists() {
