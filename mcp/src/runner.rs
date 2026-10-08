@@ -302,7 +302,10 @@ async fn run_phase_with(
             temperature: cfg.executor.temperature,
             seed: cfg.executor.seed,
             enable_thinking: Some(cfg.executor.enable_thinking),
-            reasoning_effort: cfg.executor.reasoning_effort.filter(|_| cfg.executor.enable_thinking),
+            reasoning_effort: cfg
+                .executor
+                .reasoning_effort
+                .filter(|_| cfg.executor.enable_thinking),
         },
         telemetry_dir: inp.telemetry_dir,
         progress: inp.progress,

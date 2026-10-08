@@ -1834,7 +1834,10 @@ reasoning_effort = "low"
             "[executor]\nprovider = \"openai\"\nmodel = \"m\"\nbase_url = \"http://x/v1\"\nreasoning_effort = \"max\"\n[commands]\n[budget]\ncontext_length = 32768\nmax_context_pct = 70\nmax_turns = 40\n",
         )
         .unwrap();
-        assert!(Config::load(&path).is_err(), "an unknown effort must be refused");
+        assert!(
+            Config::load(&path).is_err(),
+            "an unknown effort must be refused"
+        );
     }
 
     #[test]

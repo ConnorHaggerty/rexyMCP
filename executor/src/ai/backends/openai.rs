@@ -886,7 +886,11 @@ mod tests {
             },
         );
         assert_eq!(body["chat_template_kwargs"]["reasoning_effort"], "low");
-        assert!(body["chat_template_kwargs"].get("enable_thinking").is_none());
+        assert!(
+            body["chat_template_kwargs"]
+                .get("enable_thinking")
+                .is_none()
+        );
     }
 
     #[test]
@@ -903,7 +907,11 @@ mod tests {
             },
         );
         assert_eq!(body["chat_template_kwargs"]["enable_thinking"], false);
-        assert!(body["chat_template_kwargs"].get("reasoning_effort").is_none());
+        assert!(
+            body["chat_template_kwargs"]
+                .get("reasoning_effort")
+                .is_none()
+        );
     }
 
     #[test]
